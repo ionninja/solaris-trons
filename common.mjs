@@ -7,3 +7,5 @@ export const getBtcUsdPrice = async () => {
 }
 
 export const roundToFixed2 = (val) => Math.round(val * 1e2) / 1e2;
+
+export const floorToFixed3 = (val) => Math.floor(val * 1e3) / 1e3;
