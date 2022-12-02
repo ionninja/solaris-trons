@@ -6,7 +6,7 @@ $.verbose = false;
 
 try {
   const projects = await fs.readdir(SOLARIS_PROJECTS_PATH);
-  console.log(YAML.stringify(projects.filter((name) => !['shop', 'DEMO'].includes(name))));
+  console.log(YAML.stringify(projects.filter((name) => !(['shop', 'DEMO'].includes(name) || name.includes(".")))));
 } catch (err) {
   console.error(YAML.stringify([]));
   process.exit(1);
