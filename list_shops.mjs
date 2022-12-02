@@ -9,4 +9,5 @@ try {
   console.log(YAML.stringify(projects.filter((name) => !['shop', 'DEMO'].includes(name))));
 } catch (err) {
   console.error(YAML.stringify([]));
+  process.exit(1);
 }
