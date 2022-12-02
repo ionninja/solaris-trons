@@ -28,7 +28,7 @@ for (const shop of shops) {
     const regex = new RegExp(/[+-]?([0-9]*[.])?[0-9]+/);
     const matchResult = regex.exec(mysqlResult.stdout);
     if (matchResult && matchResult.length > 0) {
-      result[shop] = matchResult[0];
+      result[shop] = +matchResult[0];
     } else {
       result[shop] = null;
     }
