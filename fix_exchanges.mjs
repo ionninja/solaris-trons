@@ -1,6 +1,6 @@
 #!/usr/bin/env tron
 
-import { roundToFixed2, SOLARIS_PROJECTS_PATH, getBtcUsdPrice } from './common.mjs';
+import { SOLARIS_PROJECTS_PATH } from './common.mjs';
 
 $.verbose = false;
 
@@ -33,6 +33,7 @@ for (const shop of shops) {
   // 2.
   let result = await $`./docker-compose.sh down && ./docker-compose.sh up -d`.nothrow();
   if (result.exitCode === 0) {
+    // 3.
     result = await $`./docker-compose.sh exec php-fpm ./artisan route:clear`.nothrow();
     if (result.exitCode === 0) {
       console.log(`${shop}: ok`);
