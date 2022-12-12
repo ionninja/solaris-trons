@@ -2,12 +2,12 @@
 
 $.verbose = false;
 
-if (argv.skipUpgrade) {
+if (!argv.skipUpgrade) {
   await $`apt update`;
   await $`apt -y upgrade`;
 }
 
-if (argv.host) {
+if (argv.hostname) {
   const oldHostname = (await $`hostname`).trim();
   await `hostname ${argv.hostname}`;
   await $`sed -i 's/${oldHostname}/${argv.hostname}/g' /etc/hostname`;
