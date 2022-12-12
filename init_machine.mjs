@@ -30,5 +30,5 @@ if (argv.hostname) {
 await $`curl -sL 'https://apt.netmaker.org/gpg.key' | sudo tee /etc/apt/trusted.gpg.d/netclient.asc`;
 await $`curl -sL 'https://apt.netmaker.org/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/netclient.list`;
 await $`sudo apt update`;
-await $`sudo apt install netclient`;
+await $`sudo apt install -y netclient`;
 console.log(`netclient: ok`);
