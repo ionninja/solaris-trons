@@ -5,25 +5,7 @@ $.verbose = false;
 if (!argv.skipUpgrade) {
   await $`apt update`;
   await $`apt -y upgrade`;
-  await $`apt install -y unzip curl`;
-}
-
-if (!argv.skipMc) {
-  await $`apt install -y mc`;
-  console.log(`mc: ok`);
-}
-
-if (argv.hostname) {
-  const oldHostname = (await $`hostname`.nothrow()).stdout.trim();
-  if (oldHostname !== argv.hostname) {
-    await $`hostname ${argv.hostname}`;
-    await $`sed -i 's/${oldHostname}/${argv.hostname}/g' /etc/hostname`;
-    await $`sed -i 's/${oldHostname}/${argv.hostname}/g' /etc/hosts`;
-    const newHostname = (await $`hostnamectl`).stdout.split('\n')[0].split(': ')[1].trim();
-    if (newHostname == argv.hostname) {
-      console.log(`hostname: ${argv.hostname}`);
-    }
-  }
+  await $`apt install -y unzip curl bmon mc`;
 }
 
 // Установка клиента netmaker
