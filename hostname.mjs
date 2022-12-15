@@ -1,5 +1,7 @@
 #!/usr/bin/env tron
 
+// Изменение системного `hostname`.
+
 $.verbose = false;
 
 if (argv._.length !== 1) {

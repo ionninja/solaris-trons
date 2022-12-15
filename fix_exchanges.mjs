@@ -1,20 +1,17 @@
 #!/usr/bin/env tron
 
-import { SOLARIS_PROJECTS_PATH } from './common.mjs';
+import { runInternalScript, SOLARIS_PROJECTS_PATH } from './common.mjs';
 
 $.verbose = false;
 
 const oldCwd = process.cwd();
-const scriptsPath = __dirname;
 
 // Получаем список шопов на хосте.
 let shops;
 if (argv._.length === 0) {
-  const result = await $`${path.join(scriptsPath, "list_shops.mjs")}`.nothrow();
-  if (result.exitCode !== 0) {
+  shops = await runInternalScript("list_shops.mjs");
+  if (!shops) {
     process.exit(1);
-  } else {
-    shops = YAML.parse(result.stdout);
   }
 } else {
   shops = argv._;

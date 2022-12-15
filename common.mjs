@@ -9,3 +9,16 @@ export const getBtcUsdPrice = async () => {
 export const roundToFixed2 = (val) => Math.round(val * 1e2) / 1e2;
 
 export const floorToFixed3 = (val) => Math.floor(val * 1e3) / 1e3;
+
+export const runInternalScript = async (scriptName, noExit = true, ...args) => {
+  const result = await $`${path.join(__dirname, scriptName)} ${args.join(' ')}`.nothrow();
+  if (result.exitCode === 0) {
+    return YAML.parse(result.stdout);
+  } else {
+    if (noExit) {
+      return null;
+    } else {
+      process.exit(1);
+    }
+  }
+};
