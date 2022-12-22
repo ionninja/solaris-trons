@@ -13,3 +13,4 @@ await $`curl -sL 'https://apt.netmaker.org/gpg.key' | sudo tee /etc/apt/trusted.
 await $`curl -sL 'https://apt.netmaker.org/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/netclient.list`;
 await $`sudo apt update`;
 await $`sudo apt install -y netclient=0.16.3-0`;
+await $`sudo apt-mark hold netclient`;
