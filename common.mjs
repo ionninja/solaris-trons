@@ -13,7 +13,7 @@ export const floorToFixed3 = (val) => Math.floor(val * 1e3) / 1e3;
 export const runInternalScript = async (scriptName, noExit = true, ...args) => {
   const result = await $`${path.join(__dirname, scriptName)} ${args.join(' ')}`.nothrow();
   if (result.exitCode === 0) {
-    return YAML.parse(result.stdout);
+    return YAML.parse(result.stdout.trim());
   } else {
     if (noExit) {
       return null;
