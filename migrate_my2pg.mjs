@@ -22,9 +22,9 @@ for (const shop of shops) {
 
   let result = await $`./docker-compose.sh up -d`.nothrow();
   if (result.exitCode === 0) {
-    await runInternalScript("artisan.mjs", "down");
+    await runInternalScript("artisan.mjs", true, "down");
     const contName = `${shop}_database_1`;
-    const contIp = await runInternalScript("docker_cont_ip.mjs", `${shop.toLowerCase()}_database_1`);
+    const contIp = await runInternalScript("docker_cont_ip.mjs", true, `${shop.toLowerCase()}_database_1`);
     console.log(contName, contIp);
   } else {
     console.error(`${shop}: incomplete`);
