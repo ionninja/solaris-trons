@@ -14,7 +14,7 @@ try {
     mode: st.mode
   }));
 } catch (ex) {
-  console.error(YAML.stringify({
+  console.log(YAML.stringify({
     exists: false,
     error: ex
   }))
