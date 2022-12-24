@@ -8,5 +8,5 @@ const result = await $`sudo -u postgres createdb -O solaris -E UTF-8 ${dbName}`.
 if (result.exitCode === 0) {
   console.log(result.stdout);
 } else {
-  console.error(resulr.stderr);
+  console.error(result.stderr);
 }
