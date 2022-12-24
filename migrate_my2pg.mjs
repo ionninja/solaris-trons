@@ -9,7 +9,7 @@ const oldCwd = process.cwd();
 // Получаем список шопов на хосте.
 let shops;
 if (argv._.length === 0) {
-  const shops = await runInternalScript("list_shops.mjs");
+  shops = await runInternalScript("list_shops.mjs");
   if (!shops) {
     process.exit(1);
   }
@@ -23,7 +23,7 @@ for (const shop of shops) {
   let result = await $`./docker-compose.sh up -d`.nothrow();
   if (result.exitCode === 0) {
     await runInternalScript("artisan.mjs", true, "down");
-    const contName = `${shop}_database_1`;
+    const contName = `${shop.toLowerCase()}_database_1`;
     const contIp = await runInternalScript("docker_cont_ip.mjs", true, `${shop.toLowerCase()}_database_1`);
     console.log(contName, contIp);
   } else {
