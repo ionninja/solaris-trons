@@ -12,12 +12,11 @@ if (!shops) {
   process.exit(1);
 }
 
-await $`scp -r -q /share/modules root:${argb.pwd}@${argv.ip}:/share/modules`;
-
-const result = {};
+// Переводим все шопы в режим тех. обслуживания
 for (const shop of shops) {
   await runInternalScript("shop_down.mjs", true, shop);
-
 }
+
+
 
 cd(oldCwd);

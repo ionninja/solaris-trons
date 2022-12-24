@@ -6,7 +6,6 @@ $.verbose = false;
 
 const btcPrice = await getBtcUsdPrice();
 const oldCwd = process.cwd();
-const scriptsPath = __dirname;
 
 const now = await $`date '+%d%m%y'`;
 const payoutAccount = `PAYOUT${now.stdout.trim()}`;
@@ -18,7 +17,7 @@ if (listAccountsResult.exitCode === 0) {
   accounts = JSON.parse(listAccountsResult.stdout);
 }
 
-const incomesResult = await $`${path.join(scriptsPath, "show_incomes.mjs")}`.nothrow();
+const incomesResult = await $`${path.join(__dirname, "show_incomes.mjs")}`.nothrow();
 if (incomesResult.exitCode !== 0) {
   console.error(incomesResult.stderr);
   process.exit(1);
