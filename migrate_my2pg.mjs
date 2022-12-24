@@ -15,9 +15,7 @@ if (argv._.length === 0) {
   }
 } else {
   shops = argv._;
-}
-
-// Создаём базы данных
+} 
 
 
 for (const shop of shops) {
