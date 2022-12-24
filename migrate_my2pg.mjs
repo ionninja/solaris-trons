@@ -24,6 +24,8 @@ for (const shop of shops) {
   if (result.exitCode === 0) {
     await runInternalScript("artisan.mjs", "down");
     const contName = `${shop}_database_1`;
+    const contIp = await runInternalScript("docker_cont_ip.mjs", `${shop.toLowerCase()}_database_1`);
+    console.log(contName, contIp);
   } else {
     console.error(`${shop}: incomplete`);
   }
