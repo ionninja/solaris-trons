@@ -28,9 +28,10 @@ for (const shop of shops) {
   if (result.exitCode === 0) {
     // Режим техобслуживания
     const modeResult = await runInternalScript("artisan.mjs", true, "down");
-    if (!modeResult) {
-      console.error(`cannot maintenance ${shop} - ignore`);
-    }
+    // if (!modeResult) {
+    //   console.error(`cannot maintenance ${shop} - ignore`);
+    //   continue;
+    // }
     const shopName = shop.toLowerCase();
     const contName = `${shopName}_database_1`;
     
