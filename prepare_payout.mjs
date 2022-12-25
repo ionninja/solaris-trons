@@ -17,7 +17,7 @@ if (listAccountsResult.exitCode === 0) {
   accounts = JSON.parse(listAccountsResult.stdout);
 }
 
-const incomesResult = await $`${path.join(__dirname, "show_incomes.mjs")}`.nothrow();
+const incomesResult = await $`${path.join(__dirname, "list_incomes.mjs")}`.nothrow();
 if (incomesResult.exitCode !== 0) {
   console.error(incomesResult.stderr);
   process.exit(1);

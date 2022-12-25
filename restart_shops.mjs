@@ -9,13 +9,13 @@ const oldCwd = process.cwd();
 // Получаем список шопов на хосте.
 let shops;
 if (argv._.length === 0) {
-  const shops = await runInternalScript("list_shops.mjs");
+  shops = await runInternalScript("list_shops.mjs");
   if (!shops) {
     process.exit(1);
   }
 } else {
   shops = argv._;
-}
+} 
 
 for (const shop of shops) {
   cd(path.join(SOLARIS_PROJECTS_PATH, shop));
