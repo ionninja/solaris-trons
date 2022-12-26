@@ -1,4 +1,4 @@
-\#!/usr/bin/env tron
+#!/usr/bin/env tron
 
 import { SOLARIS_PROJECTS_PATH, runInternalScript } from './common.mjs';
 
