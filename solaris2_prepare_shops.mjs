@@ -21,6 +21,7 @@ for (const shopId of shops) {
   cd(path.join(SOLARIS_PROJECTS_PATH, shopId));
 
   try {
+    await runInternalScript("shop_down.mjs", true, shopId);
     await $`rm -R laravel_cache/*`;
     await runInternalScript("shop_up.mjs", true, shopId);
     await runInternalScript("artisan.mjs", true, '--cmd "migrate --force"');
