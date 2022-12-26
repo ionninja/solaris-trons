@@ -8,7 +8,7 @@ const DELS = [
   "REDIS_DATABASE",
 ];
 
-const CONF_PATH = '/share/app/shops_redisdb.json';
+const CONF_PATH = '/share/app/shops_redisdb.yaml';
 
 const oldCwd = process.cwd();
 
