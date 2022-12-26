@@ -19,11 +19,16 @@ if (argv._.length === 0) {
 
 for (const shop of shops) {
   cd(path.join(SOLARIS_PROJECTS_PATH, shop));
-  let result = await $`./docker-compose.sh exec php-fpm ./artisan ${argv.cmd}`.nothrow();
-  if (result.exitCode === 0) {
-    console.log(`${shop}: ok`);
-  } else {
-    console.error(`${shop}: incomplete`);
+  try {
+    await $`rm -R laravel_cache/*`;
+    let result = await $`./docker-compose.sh exec php-fpm ./artisan ${argv.cmd}`.nothrow();
+    if (result.exitCode === 0) {
+      console.log(`${shop}: ok`);
+    } else {
+      console.error(`${shop}: incomplete`);
+    }
+  } catch (ex) {
+
   }
 }
 
