@@ -46,7 +46,7 @@ for (const shopId of shops) {
       }
       return true;
     });
-    
+
     for (let n = 0; n < envLines.length; n++) {
       for (const k of EDIT_KEYS) {
         if (envLines[n].startsWith(k)) {
@@ -56,7 +56,7 @@ for (const shopId of shops) {
             envLines[n] = `${k}=${EDIT_OPTS[k]}`;
           }
         }
-      }  
+      }
     }
     await fs.writeFile(".env", envLines.join("\n"));
     console.log(`${shopId}: ok`);
@@ -65,7 +65,7 @@ for (const shopId of shops) {
     console.log(`${shopId}: fail`);
     console.error(ex);
     process.exit(1);
-  } 
+  }
 }
 
 cd(oldCwd);
