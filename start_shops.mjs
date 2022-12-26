@@ -24,7 +24,7 @@ for (const shop of shops) {
   if (result.exitCode === 0) {
     console.log(`${shop}: ok`);
   } else {
-    console.error(`${shop}: incomplete`);
+    console.error(`${shop}: fail`);
   }
 }
 
