@@ -17,7 +17,6 @@ if (argv._.length === 0) {
   shops = argv._;
 }
 
-const result = {};
 for (const shop of shops) {
   cd(path.join(SOLARIS_PROJECTS_PATH, shop));
   let result = await $`./docker-compose.sh exec php-fpm ./artisan ${argv.cmd}`.nothrow();
