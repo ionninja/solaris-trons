@@ -61,8 +61,10 @@ for (const shopId of shops) {
     await fs.writeFile(".env", envLines.join("\n"));
     console.log(`${shopId}: ok`);
   } catch (ex) {
+    cd(oldCwd);
     console.log(`${shopId}: fail`);
     console.error(ex);
+    process.exit(1);
   } 
 }
 
