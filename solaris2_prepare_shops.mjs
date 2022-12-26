@@ -22,7 +22,12 @@ for (const shopId of shops) {
 
   try {
     await runInternalScript("shop_down.mjs", true, shopId);
-    await $`rm -R laravel_cache/*`;
+    try {
+      await $`rm -R laravel_cache/*`;
+    } catch (ex) {
+      console.log(`${shopId}: clear cache error`);
+      console.error(ex);
+    }
     await runInternalScript("shop_up.mjs", true, shopId);
     await runInternalScript("artisan.mjs", true, '--cmd "migrate --force"');
     await runInternalScript("artisan.mjs", true, '--cmd "mm2:close_preorders"');
