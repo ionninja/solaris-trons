@@ -17,15 +17,8 @@ const ENV_DELS = [
   "REDIS_DATABASE"
 ];
 
-const EDIT_OPTS = {
-  PERCONA_DATABASE: (k, shopId) => `${k}=shop_${shopId.toLowerCase()}`,
-  PERCONA_USER: "solaris",
-  PERCONA_PASSWORD: "solaris",
-  LOCAL_SYNC_URL: "10.20.30.9:8800",
-  LOCAL_IP: lanIp
-};
-
-const CONF_PATH = '/share/app/shops_redisdb.yaml';
+// Назначаем каждому шопу свой redis database index
+let CONF_PATH = '/share/app/shops_redisdb.yaml';
 const allShops = await getShops({ noArgv: true });
 let shopRedisDBMap;
 if (await fs.pathExists(CONF_PATH)) {
@@ -39,6 +32,29 @@ if (await fs.pathExists(CONF_PATH)) {
   }
   await fs.writeFile(CONF_PATH, YAML.stringify(shopRedisDBMap));
 }
+
+CONF_PATH = '/share/app/shops_port.yaml';
+let shopPortMap;
+if (await fs.pathExists(CONF_PATH)) {
+  const content = await fs.readFile(CONF_PATH, { encoding: 'utf8' });
+  shopPortMap = YAML.parse(content);
+} else {
+  shopPortMap = {};
+  let i = 8801;
+  for (const shopId of allShops) {
+    shopPortMap[shopId] = i++;
+  }
+  await fs.writeFile(CONF_PATH, YAML.stringify(shopPortMap));
+}
+
+const EDIT_OPTS = {
+  PERCONA_DATABASE: (k, shopId) => `${k}=shop_${shopId.toLowerCase()}`,
+  PERCONA_USER: "solaris",
+  PERCONA_PASSWORD: "solaris",
+  LOCAL_SYNC_URL: "10.20.30.9:8800",
+  LOCAL_IP: lanIp,
+  APP_PORT: (k, shopId) => `${k}=${shopPortMap[shopId]}`,
+};
 
 const fixEnv = async (shopId) => {
   const EDIT_KEYS = Object.keys(EDIT_OPTS);
