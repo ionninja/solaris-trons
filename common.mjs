@@ -31,7 +31,7 @@ export const getShops = async ({exitOnFailure = true, noArgv = false } = {}) => 
     return argv._;
   }
 
-  const shops = await runInternalScript("list_shops.mjs");
+  let shops = await runInternalScript("list_shops.mjs");
   if (!shops && exitOnFailure) {
     process.exit(1);
   } else {

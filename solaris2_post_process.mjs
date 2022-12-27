@@ -77,25 +77,15 @@ const fixEnv = async (shopId) => {
   }
 }
 
-if (argv['fix-nginx']) {
-  console.log(`fixing nginx antiddos files`);
-
-  const basePath = '/share/app/docker/nginx/antiddos';
-  const files = await fs.readdir(basePath);
-  for (const f of files) {
-    await $`sed -i 's/red:connect("redis", 6379)/red:connect("${lanIp}", 6379)/g' ${basePath}/${f}`;
-  }
-}
-
 for (const shopId of shops) {
   const shopBasePath = path.join(SOLARIS_PROJECTS_PATH, shopId);
   cd(shopBasePath);
 
   try {
-    if (argv['fix-docker-compose']) {
-      console.log(`[${shopId}] updating docker-compose.sh`);
-      await $`sed -i 's/docker-compose -f/docker compose -f/g' ${shopBasePath}/docker-compose.sh`;
-    }
+    // if (argv['fix-docker-compose']) {
+    //   console.log(`[${shopId}] updating docker-compose.sh`);
+    //   await $`sed -i 's/docker-compose -f/docker compose -f/g' ${shopBasePath}/docker-compose.sh`;
+    // }
 
     console.log(`[${shopId}] updating .env`);
     await fixEnv(shopId);
