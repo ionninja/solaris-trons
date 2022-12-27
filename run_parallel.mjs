@@ -21,3 +21,11 @@ const runNext = () => {
 };
 
 runNext();
+
+const check = () => {
+  if (queue.length > 0 || shops.length > 0) {
+    setTimeout(check, 1000);
+  }
+}
+
+setTimeout(check, 1000);
