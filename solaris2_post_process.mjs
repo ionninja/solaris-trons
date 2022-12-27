@@ -87,10 +87,8 @@ for (const shopId of shops) {
   cd(shopBasePath);
 
   try {
-    // if (argv['fix-docker-compose']) {
-    //   console.log(`[${shopId}] updating docker-compose.sh`);
-    //   await $`sed -i 's/docker-compose -f/docker compose -f/g' ${shopBasePath}/docker-compose.sh`;
-    // }
+    console.log(`[${shopId}] updating docker-compose.sh`);
+    await $`sed -i 's/docker-compose -f/docker-compose --env-file ./.env -f/g' ${shopBasePath}/docker-compose.sh`;
 
     console.log(`[${shopId}] updating .env`);
     await fixEnv(shopId);
