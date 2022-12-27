@@ -6,13 +6,17 @@ $.verbose = true;
 
 const shops = await getShops();
 const concurrent = argv.c;
-const queue = [];
+const queue = new Map();
 
 const runNext = () => {
   for (let i = 0; i < concurrent - queue.length && shops.length > 0; i++) {
+    const shopName = shops.shift();
     const p = runInternalScript(argv.script, true, shops.shift());
-    p.then(() => runNext()).catch(() => {});
-    queue.push(p);
+    p.then(() => {
+      queue.delete(shopName);
+      runNext();
+    }).catch(() => {});
+    queue.set(shopName, p);
   }
 };
 
