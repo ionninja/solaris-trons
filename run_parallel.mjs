@@ -9,9 +9,9 @@ const concurrent = argv.c;
 const queue = new Map();
 
 const runNext = () => {
-  for (let i = 0; i < concurrent - queue.length && shops.length > 0; i++) {
+  for (let i = 0; i < concurrent - queue.length && shops.size > 0; i++) {
     const shopName = shops.shift();
-    const p = runInternalScript(argv.script, true, shops.shift());
+    const p = runInternalScript(argv.s, true, shopName);
     p.then(() => {
       queue.delete(shopName);
       runNext();
@@ -23,7 +23,7 @@ const runNext = () => {
 runNext();
 
 const check = () => {
-  if (queue.length > 0 || shops.length > 0) {
+  if (queue.size > 0 || shops.length > 0) {
     setTimeout(check, 1000);
   }
 }
