@@ -55,7 +55,7 @@ const fixEnv = async (shopId) => {
       return true;
     });
 
-    envLines.push(`REDIS_DATABASE=${dbId}`);
+    envLines.push(`REDIS_DATABASE=${shopRedisDBMap[shopId]}`);
 
     for (let n = 0; n < envLines.length; n++) {
       for (const k of EDIT_KEYS) {
@@ -72,15 +72,13 @@ const fixEnv = async (shopId) => {
     await fs.writeFile(".env", envLines.join("\n"));
     return true;
   } catch (ex) {
-    cd(oldCwd);
-    console.log(`[${shopId}] [fixEnv] fail`);
     console.error(ex);
     return false;
   }
 }
 
 if (argv['fix-nginx']) {
-  console.log(`[${shopId}] fixing nginx antiddos files`);
+  console.log(`fixing nginx antiddos files`);
 
   const basePath = '/share/app/docker/nginx/antiddos';
   const files = await fs.readdir(basePath);
