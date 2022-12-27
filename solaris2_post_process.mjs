@@ -95,7 +95,7 @@ for (const shopId of shops) {
 
   try {
     if (argv['fix-docker-compose']) {
-      consolr.log(`[${shopId}] updating docker-compose.sh`);
+      console.log(`[${shopId}] updating docker-compose.sh`);
       await $`sed -i 's/docker-compose -f/docker compose -f/g' ${shopBasePath}/docker-compose.sh`;
     }
 
