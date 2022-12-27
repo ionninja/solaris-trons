@@ -9,7 +9,7 @@ const concurrent = argv.c;
 const queue = new Map();
 
 const runNext = () => {
-  for (let i = 0; i < concurrent - queue.length && shops.size > 0; i++) {
+  for (let i = 0; i < concurrent - queue.size && shops.length > 0; i++) {
     const shopName = shops.shift();
     const p = runInternalScript(argv.s, true, shopName);
     p.then(() => {
