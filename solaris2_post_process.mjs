@@ -55,15 +55,22 @@ const fixEnv = async (shopId) => {
 
     envLines.push(`REDIS_DATABASE=${shopRedisDBMap[shopId]}`);
 
-    for (let n = 0; n < envLines.length; n++) {
-      for (const k of EDIT_KEYS) {
+    for (const k of EDIT_KEYS) {
+      const tmpl = () => (typeof EDIT_OPTS[k] === "function")
+        ? EDIT_OPTS[k](k, shopId)
+        : `${k}=${EDIT_OPTS[k]}`;
+
+
+      let found = false;
+      for (let n = 0; n < envLines.length; n++) {
         if (envLines[n].startsWith(k)) {
-          if (typeof EDIT_OPTS[k] === "function") {
-            envLines[n] = EDIT_OPTS[k](k, shopId);
-          } else {
-            envLines[n] = `${k}=${EDIT_OPTS[k]}`;
-          }
+          envLines[n] = tmpl();
+          found = true;
+          break;
         }
+      }
+      if (!found) {
+        envLines.push(tmpl());
       }
     }
 
