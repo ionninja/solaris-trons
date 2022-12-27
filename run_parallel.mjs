@@ -9,12 +9,10 @@ const concurrent = argv.c;
 const queue = [];
 
 const runNext = () => {
-  while (shops.length > 0) {
-    for (let i = 0; i < concurrent - queue.length && shops.length > 0; i++) {
-      const p = runInternalScript(argv.script, true, shops.shift());
-      p.then(() => runNext()).catch(() => {});
-      queue.push(p);
-    }
+  for (let i = 0; i < concurrent - queue.length && shops.length > 0; i++) {
+    const p = runInternalScript(argv.script, true, shops.shift());
+    p.then(() => runNext()).catch(() => {});
+    queue.push(p);
   }
 };
 
