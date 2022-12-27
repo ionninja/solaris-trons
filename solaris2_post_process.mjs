@@ -26,26 +26,23 @@ const EDIT_OPTS = {
 };
 
 const CONF_PATH = '/share/app/shops_redisdb.yaml';
-
+let shopRedisDBMap;
+if (await fs.pathExists(CONF_PATH)) {
+  const content = await fs.readFile(CONF_PATH, { encoding: 'utf8' });
+  shopRedisDBMap = YAML.parse(content);
+} else {
+  shopRedisDBMap = {};
+  let i = 0;
+  for (const shopId of shops) {
+    shopRedisDBMap[shopId] = i++;
+  }
+}
+await fs.writeFile(CONF_PATH, YAML.stringify(shopRedisDBMap));
 
 const fixEnv = async (shopId) => {
   const EDIT_KEYS = Object.keys(EDIT_OPTS);
 
   try {
-    let shopRedisDBMap;
-    if (await fs.pathExists(CONF_PATH)) {
-      const content = await fs.readFile(CONF_PATH, { encoding: 'utf8' });
-      shopRedisDBMap = YAML.parse(content);
-    } else {
-      shopRedisDBMap = {};
-      let i = 0;
-      for (const shopId of shops) {
-        shopRedisDBMap[shopId] = i++;
-      }
-    }
-    await fs.writeFile(CONF_PATH, YAML.stringify(shopRedisDBMap));
-
-
     const envLines = (await fs.readFile(".env", { encoding: 'utf8' })).split("\n").filter((l) => {
       for (const d of ENV_DELS) {
         if (l.startsWith(d)) {
