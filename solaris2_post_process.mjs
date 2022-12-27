@@ -99,7 +99,7 @@ for (const shopId of shops) {
       await $`sed -i 's/docker-compose -f/docker compose -f/g' ${shopBasePath}/docker-compose.sh`;
     }
 
-    consolr.log(`[${shopId}] updating .env`);
+    console.log(`[${shopId}] updating .env`);
     await fixEnv(shopId);
 
     console.log(`[${shopId}] stopping docker`);
