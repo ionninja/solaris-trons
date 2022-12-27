@@ -105,9 +105,8 @@ for (const shopId of shops) {
     }
 
     console.log(`[${shopId}] chown dirs`);
-    await $`chown -R 1001:1001 database`;
     await $`chown -R 1000:33 storage`;
-    await $`chown -R 1001:1001 cache`;
+
 
     // ??? - оно может и не надо это тут, учитывая, что в `up` отдаётся флаг `--build`
     console.log(`[${shopId}] rebuilding docker`);
@@ -119,6 +118,9 @@ for (const shopId of shops) {
     // artisan ...
     console.log(`[${shopId}] artisan migrate --force`);
     await $`./docker-compose.sh exec php-fpm ./artisan migrate --force`;
+
+    console.log(`[${shopId}] artisan mm2:update_rates`);
+    await $`./docker-compose.sh exec php-fpm ./artisan mm2:update_rates`;
 
     try {
       console.log(`[${shopId}] artisan mm2:close_preorders`);
