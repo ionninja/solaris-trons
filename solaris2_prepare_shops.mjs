@@ -41,7 +41,7 @@ for (const shopId of shops) {
     await $`./docker-compose.sh build`;
     
     console.log(`${shopId}: starting`);
-    await $`./docker-compose.sh up`;
+    await $`./docker-compose.sh up -d`;
     
     // artisan ...
     console.log(`${shopId}: artisan migrate --force`);
