@@ -23,9 +23,7 @@ export const runInternalScript = async (scriptName, noExit = true, ...args) => {
   }
 };
 
-
-export const getLANIp = (await $`ifconfig nm-solaris | grep "inet " | awk '{print $2}'`).stdout.trim();
-
+export const getLANIp = async () => (await $`ifconfig nm-solaris | grep "inet " | awk '{print $2}'`).stdout.trim();
 
 export const getShops = async ({exitOnFailure = true, noArgv = false } = {}) => {
   // Получаем список шопов на хосте.
