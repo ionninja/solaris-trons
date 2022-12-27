@@ -1,6 +1,11 @@
 #!/usr/bin/env tron
 
+import { getLANIp } from './common.mjs';
+
+
 $.verbose = false;
+
+const lanIp = await getLANIp();
 
 console.log(`fixing nginx antiddos files`);
 
