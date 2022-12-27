@@ -154,6 +154,9 @@ for (const shopId of shops) {
     console.log(`[${shopId}] artisan up`);
     await $`./docker-compose.sh exec php-fpm ./artisan up`;
 
+    console.log(`[${shopId}] artisan storage:link`);
+    await $`./docker-compose.sh exec php-fpm ./artisan storage:link`;
+
   } catch (ex) {
     console.log(`[${shopId}] fail`);
     console.error(ex);
