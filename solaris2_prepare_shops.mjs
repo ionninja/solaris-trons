@@ -22,7 +22,7 @@ for (const shopId of shops) {
 
   try {
     console.log(`${shopId}: stopping`);
-    await runInternalScript("shop_down.mjs", true, shopId);
+    await $`./docker-compose.sh down`;
 
     console.log(`${shopId}: rm -R laravel_cache/*`);
     try {
@@ -37,11 +37,11 @@ for (const shopId of shops) {
     await $`chown -R 1000:33 storage`;
     await $`chown -R 1001:1001 cache`;
 
-    console.log(`${shopId}: rebuild docker`);
-    await runInternalScript("shop_up.mjs", true, shopId);
+    console.log(`${shopId}: rebuilding docker`);
+    await $`./docker-compose.sh build`;
     
     console.log(`${shopId}: starting`);
-    await runInternalScript("shop_up.mjs", true, shopId);
+    await $`./docker-compose.sh up`;
     
     // artisan ...
     console.log(`${shopId}: artisan migrate --force`);
