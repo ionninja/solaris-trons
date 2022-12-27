@@ -37,8 +37,8 @@ if (await fs.pathExists(CONF_PATH)) {
   for (const shopId of allShops) {
     shopRedisDBMap[shopId] = i++;
   }
+  await fs.writeFile(CONF_PATH, YAML.stringify(shopRedisDBMap));
 }
-await fs.writeFile(CONF_PATH, YAML.stringify(shopRedisDBMap));
 
 const fixEnv = async (shopId) => {
   const EDIT_KEYS = Object.keys(EDIT_OPTS);
