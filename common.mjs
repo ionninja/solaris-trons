@@ -11,7 +11,7 @@ export const roundToFixed2 = (val) => Math.round(val * 1e2) / 1e2;
 export const floorToFixed3 = (val) => Math.floor(val * 1e3) / 1e3;
 
 export const runInternalScript = async (scriptName, noExit = true, ...args) => {
-  const result = await $`${path.join(__dirname, scriptName)} ${args.map((a) => `"${a}"`).join(' ')}`.nothrow();
+  const result = await $`${path.join(__dirname, scriptName)} ${args.join(' ')}`.nothrow();
   if (result.exitCode === 0) {
     return YAML.parse(result.stdout.trim());
   } else {
@@ -32,11 +32,12 @@ export const getShops = async ({exitOnFailure = true, noArgv = false } = {}) => 
   }
 
   let shops = await runInternalScript("list_shops.mjs");
-  if (!shops && exitOnFailure) {
-    process.exit(1);
-  } else {
-    shops = [];
+  if (!shops) {
+    if (exitOnFailure) {
+      process.exit(1);
+    } else {
+      shops = [];
+    }
   }
-
   return shops;
 }
