@@ -26,6 +26,7 @@ const EDIT_OPTS = {
 };
 
 const CONF_PATH = '/share/app/shops_redisdb.yaml';
+const allShops = await getShops({ noArgv: true });
 let shopRedisDBMap;
 if (await fs.pathExists(CONF_PATH)) {
   const content = await fs.readFile(CONF_PATH, { encoding: 'utf8' });
@@ -33,7 +34,7 @@ if (await fs.pathExists(CONF_PATH)) {
 } else {
   shopRedisDBMap = {};
   let i = 0;
-  for (const shopId of shops) {
+  for (const shopId of allShops) {
     shopRedisDBMap[shopId] = i++;
   }
 }
