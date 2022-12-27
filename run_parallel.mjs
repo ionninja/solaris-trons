@@ -15,7 +15,10 @@ const runNext = () => {
     p.then(() => {
       queue.delete(shopName);
       runNext();
-    }).catch(runNext);
+    }).catch(() => {
+      queue.delete(shopName);
+      runNext();
+    });
     queue.set(shopName, p);
   }
 };
