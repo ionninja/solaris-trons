@@ -21,14 +21,27 @@ for (const shopId of shops) {
   cd(path.join(SOLARIS_PROJECTS_PATH, shopId));
 
   try {
+    // Стопаем шоп
     await runInternalScript("shop_down.mjs", true, shopId);
+
+    // Удаляем кэш 
     try {
       await $`rm -R laravel_cache/*`;
     } catch (ex) {
       console.log(`${shopId}: clear cache error`);
       console.error(ex);
     }
+    // Выставляем нужные права на папка
+    await $`chown -R 1001:1001 database`;
+    await $`chown -R 1000:33 storage`;
+    await $`chown -R 1001:1001 cache`;
+
+    // Пересобираем докер. 
     await runInternalScript("shop_up.mjs", true, shopId);
+    // Запускаем докер
+    await runInternalScript("shop_up.mjs", true, shopId);
+    
+    // artisan ...
     await runInternalScript("artisan.mjs", true, '--cmd "migrate --force"');
     await runInternalScript("artisan.mjs", true, '--cmd "mm2:close_preorders"');
     await runInternalScript("artisan.mjs", true, '--cmd "cpp:init-system"');

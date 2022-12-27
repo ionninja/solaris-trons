@@ -8,10 +8,5 @@ const oldCwd = process.cwd();
 
 cd(path.join(SOLARIS_PROJECTS_PATH, argv._[0]));
 let result = await $`./docker-compose.sh up -d`.nothrow();
-if (result.exitCode === 0) {
-  console.log(YAML.stringify({ [shop]: argv._[0] }));
-} else {
-  console.error(YAML.stringify({ [shop]: { name: argv._[0], error: result.stderr } }));
-}
-
 cd(oldCwd);
+process.exit(result.exitCode === 0 ? 0 : 1);
