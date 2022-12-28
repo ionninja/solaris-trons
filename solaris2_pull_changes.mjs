@@ -1,7 +1,8 @@
 #!/usr/bin/env tron
 
 import { runInternalScript } from './common.mjs';
-import { pull as gitPull, http } from "isomorphic-git";
+import { pull as gitPull } from "isomorphic-git";
+import * as http from "somorphic-git/http/node";
 import fs from "node:fs";
 
 $.verbose = false;
