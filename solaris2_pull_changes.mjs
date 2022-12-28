@@ -6,6 +6,7 @@ import { runInternalScript } from './common.mjs';
 import { pull as gitPull } from "isomorphic-git";
 import * as http from "isomorphic-git/http/node/index.cjs";
 import fs from "node:fs";
+import { argv } from 'node:process';
 
 $.verbose = false;
 
@@ -49,8 +50,9 @@ await gitPull({
   oauth2format: 'gitlab'
 });
 
-await runInternalScript("solaris2_post_process.mjs");
-
+if (argv.t !== 'trons') {
+  await runInternalScript("solaris2_post_process.mjs");
+}
 console.log("ok");
 
 cd(oldCwd);
