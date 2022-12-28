@@ -7,19 +7,30 @@ $.verbose = false;
 
 const oldCwd = process.cwd();
 
-let dir;
+let gitDir;
+let gitUrl;
 switch (argv.t) {
-  case 'code': dir = '/share/app/code'; break;
-  case 'share': dir = '/share'; break;
-  case 'trons': dir = '/opt/solaris-trons'; break;
+  case 'code':
+    gitDir = '/share/app/code';
+    gitUrl = 'https://lain-the-wired.com/mm-solaris/shop';
+    break;
+  case 'share':
+    gitDir = '/share';
+    gitUrl = 'https://lain-the-wired.com/mm-solaris/share';
+    break;
+  case 'trons':
+    gitDir = '/opt/solaris-trons';
+    gitUrl = 'https://lain-the-wired.com/morph/solaris-trons'
+    break;
 }
 
-cd(dir);
+cd(gitDir);
 
 await gitPull({
   fs,
   http,
-  dir,
+  dir: gitDir,
+  url: gitUrl,
   ref: 'master',
   singleBranch: true,
   author: {
