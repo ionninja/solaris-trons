@@ -2,7 +2,7 @@
 
 import { runInternalScript } from './common.mjs';
 import { pull as gitPull } from "isomorphic-git";
-import * as http from "somorphic-git/http/node";
+import * as http from "isomorphic-git/http/node/index.cjs";
 import fs from "node:fs";
 
 $.verbose = false;
@@ -29,18 +29,22 @@ switch (argv.t) {
 cd(gitDir);
 
 await gitPull({
+  onAuth(u) {
+    return {
+      username: 'morph',
+      password: 'glpat-pH8rxCGGi-pqfxMdsKqb'
+    }
+  },
   fs,
   http,
   dir: gitDir,
-  url: gitUrl,
   ref: 'master',
   singleBranch: true,
   author: {
     name: 'morph',
     email: 'hpromatem@protonmail.com'
   },
-  username: 'morph',
-  token: 'glpat-pH8rxCGGi-pqfxMdsKqb',
+  oauth2format: 'gitlab'
 });
 
 await runInternalScript("solaris2_post_process.mjs");
