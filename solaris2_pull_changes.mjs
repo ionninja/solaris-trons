@@ -22,6 +22,10 @@ await gitPull({
   dir,
   ref: 'master',
   singleBranch: true,
+  author: {
+    name: 'morph',
+    email: 'hpromatem@protonmail.com'
+  },
   username: 'morph',
   token: 'glpat-pH8rxCGGi-pqfxMdsKqb',
 });
