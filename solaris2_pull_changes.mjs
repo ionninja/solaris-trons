@@ -49,7 +49,7 @@ await gitPull({
   oauth2format: 'gitlab'
 });
 
-// await runInternalScript("solaris2_post_process.mjs");
+await runInternalScript("solaris2_post_process.mjs");
 
 console.log("ok");
 
