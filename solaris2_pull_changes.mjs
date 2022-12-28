@@ -1,5 +1,7 @@
 #!/usr/bin/env tron
 
+// обновляет git-репозиторий для указанной цели (флаг `-t`).
+
 import { runInternalScript } from './common.mjs';
 import { pull as gitPull } from "isomorphic-git";
 import * as http from "isomorphic-git/http/node/index.cjs";
