@@ -12,19 +12,15 @@ $.verbose = false;
 const oldCwd = process.cwd();
 
 let gitDir;
-let gitUrl;
 switch (argv.t) {
   case 'code':
     gitDir = '/share/app/code';
-    gitUrl = 'https://lain-the-wired.com/mm-solaris/shop';
     break;
   case 'share':
     gitDir = '/share';
-    gitUrl = 'https://lain-the-wired.com/mm-solaris/share';
     break;
   case 'trons':
     gitDir = '/opt/solaris-trons';
-    gitUrl = 'https://lain-the-wired.com/morph/solaris-trons'
     break;
 }
 
@@ -52,11 +48,11 @@ await gitPull({
 if (argv.t !== 'trons') {
   const result = await $`${path.join(__dirname, "solaris2_post_process.mjs")}`.nothrow();
   if (result.exitCode === 0) {
-    return result.stdout.trim();
+    console.log("ok");
   } else {
-    return result.stderr.trim();
+    console.log(result.stderr.trim())
   }
 }
-console.log("ok");
+
 
 cd(oldCwd);
