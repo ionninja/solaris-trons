@@ -22,6 +22,9 @@ switch (argv.t) {
   case 'trons':
     gitDir = '/opt/solaris-trons';
     break;
+  default:
+    console.error(`Unknown target: ${argv.t}`);
+    process.exit(1);
 }
 
 cd(gitDir);
