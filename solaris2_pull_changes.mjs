@@ -5,7 +5,6 @@
 import { pull as gitPull } from "isomorphic-git";
 import * as http from "isomorphic-git/http/node/index.cjs";
 import fs from "node:fs";
-import { argv } from 'node:process';
 
 $.verbose = false;
 
