@@ -51,4 +51,6 @@ await gitPull({
 
 // await runInternalScript("solaris2_post_process.mjs");
 
+console.log("ok");
+
 cd(oldCwd);
