@@ -2,7 +2,6 @@
 
 // обновляет git-репозиторий для указанной цели (флаг `-t`).
 
-import { runInternalScript } from './common.mjs';
 import { pull as gitPull } from "isomorphic-git";
 import * as http from "isomorphic-git/http/node/index.cjs";
 import fs from "node:fs";
@@ -51,7 +50,12 @@ await gitPull({
 });
 
 if (argv.t !== 'trons') {
-  await runInternalScript("solaris2_post_process.mjs");
+  const result = await $`${path.join(__dirname, "solaris2_post_process.mjs")}`.nothrow();
+  if (result.exitCode === 0) {
+    return result.stdout.trim();
+  } else {
+    return result.stderr.trim();
+  }
 }
 console.log("ok");
 
