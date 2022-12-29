@@ -5,6 +5,7 @@
 import { pull as gitPull } from "isomorphic-git";
 import * as http from "isomorphic-git/http/node/index.cjs";
 import fs from "node:fs";
+import { argv } from "node:process";
 
 $.verbose = false;
 
@@ -47,7 +48,7 @@ await gitPull({
   oauth2format: 'gitlab'
 });
 
-if (argv.t !== 'trons') {
+if (argv.t !== 'trons' && !argv.skippp) {
   const result = await $`${path.join(__dirname, "solaris2_post_process.mjs")}`.nothrow();
   if (result.exitCode === 0) {
     console.log("ok");
